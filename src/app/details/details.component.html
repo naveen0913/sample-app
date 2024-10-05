@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="first-container">
+        <h2 class="text-center mt-2">View User Details</h2>
+        <button class="back" (click)="goBack()" >back</button>
+    </div>
+
+    <div class="mt-2 mb-3">
+        <hr>
+    </div>
+
+    
+    <div class="search">
+        <input
+            type="text"
+            class="searchTerm"
+            placeholder="Search with Mobile Number"
+            #mobileInput
+            (input)="validateMobile(mobileInput.value)" 
+        />
+        <button
+            class="searchButton"
+            (click)="getUserDetails(mobileInput.value)"
+            [disabled]="!isValidMobile"  
+        >
+            Search
+        </button>
+    </div>
+
+    <div *ngIf="!isValidMobile && mobileInput.value">
+        <p class="error-message">Please enter a valid 10-digit Indian mobile number*</p>
+    </div>
+
+   
+    <div class="img-container" *ngIf="showImageContainer"> 
+        <img src="https://www.nyca.in/wp-content/uploads/2024/07/GSTN-Introduces-Mobile-Number-Search-Feature-For-Taxpayers.jpg" alt="search-image" class="image" >
+    </div>
+
+   
+    <div [hidden]="detailsContainer" *ngIf="userDetails">
+        <h3 class="text-center mt-3">User Details</h3>
+        <div class="field-container">
+            <label>Name</label>
+            <input type="text" class="field" disabled [value]="userDetails.userName">
+        </div>
+       
+        <div class="field-container" >
+            <label>Email</label>
+            <input type="text" class="field" disabled [value]="userDetails.email">
+        </div>
+        <div class="field-container" >
+            <label>Phone</label>
+            <input type="text" class="field" disabled [value]="userDetails.phone">
+        </div>
+        <div class="field-container" >
+            <label>Password</label>
+            <input type="text" class="field" disabled [value]="userDetails.password">
+        </div>
+      
+    </div>
+
+    <div class="no-data"  *ngIf="notFoundContainer">
+        <img src="https://cdn.dribbble.com/userupload/2905383/file/original-4ea237e94e803ddd575a66eb32198899.png?resize=400x0" alt="no-data">
+    </div>
+
+
+</div>
