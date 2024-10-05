@@ -17,6 +17,7 @@ export class DetailsComponent implements OnInit,OnDestroy {
   showImageContainer: boolean = true;
   notFoundContainer: boolean = false;
   detailsContainer: boolean = true;
+  isLoading: boolean = false;
   constructor(private commonService: CommonService, private loginService: LoginService,private  router:Router) { }
 
   ngOnInit(): void {
@@ -31,6 +32,10 @@ export class DetailsComponent implements OnInit,OnDestroy {
     if (phone === '') {
       return this.commonService.error("Please enter mobile number!")
     }
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading=false;
+    }, 1000);
     this.loginService.getUserWithMobile(phone).pipe(takeUntil(this.destroy)).subscribe({
       next: response => {
         if (response && response.code == 200) {
