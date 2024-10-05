@@ -106,7 +106,7 @@ p{
   margin: 2px;
 }
 .get-details-text:hover{
-  color: rgb(21, 106, 185);
+  color: rgb(39, 145, 243);
 }
 @media (max-width: 500px) {
   .field-container {

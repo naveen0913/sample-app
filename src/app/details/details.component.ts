@@ -45,7 +45,12 @@ export class DetailsComponent implements OnInit {
         }
       },
       error: error => {
-        this.userNotFoundError();
+        console.log("err",error);
+        if (error.status==0) {
+          this.commonService.error("Something went wrong!");
+        }else{
+          this.userNotFoundError();
+        }
       }
     })
   }

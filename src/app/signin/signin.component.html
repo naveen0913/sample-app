@@ -87,7 +87,7 @@
 
         
        <hr>
-        <button type="submit" [disabled]="loginForm.invalid" (click)="userLogin()" class="submit-btn">Submit</button>
+        <button type="submit" [disabled]="loginForm.invalid || isLoading" (click)="userLogin()" class="submit-btn">{{ isLoading ? 'Processing...' : 'Login' }}</button>
          <p class="text-center">Already  User ? <span routerLink="/find" style="cursor: pointer;" class="get-details-text" >Click here</span></p>
       </div>
     </form>

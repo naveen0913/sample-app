@@ -17,6 +17,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   private destroy = new Subject<void>();
 
   loading: boolean = false;
+  isLoading: boolean = false;
 
   loginModel: User = {};
   hidePassword: boolean = true;
@@ -51,21 +52,26 @@ export class SigninComponent implements OnInit, OnDestroy {
     this.loginModel.email = this.loginForm.get("email")?.value;
     this.loginModel.phone = this.loginForm.get("phone")?.value;
     this.loginModel.password = this.loginForm.get("password")?.value;
-    console.log(this.loginModel);
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
 
-    // this.loadSpinner();
     this.loginService.userLogin(this.loginModel).pipe(takeUntil(this.destroy)).subscribe({
       next: response => {
-        if (response.code == 201) {
-          this.commonService.success("Login Success");
+        if (response && response.code == 201) {
+          setTimeout(() => {
+            this.commonService.success("Login Success");
+          }, 500);
           this.router.navigate(['/find']);
-        } else if (response.code == 409) {
-          this.commonService.handleError(response.message);
-        } else {
-          this.commonService.handleError("Something went wrong!");
         }
-      }, error: error => {
-        this.commonService.error(error);
+      },
+      error: error => {
+        if (error?.status == 0) {
+          this.commonService.handleError("Something went wrong!");
+        } else {
+          this.commonService.error("User already Exists with Mobile");
+        }
       }
     })
 
