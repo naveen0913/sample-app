@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from '../model/user.model';
 import { CommonService } from '../services/common.service';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit,OnDestroy {
 
   private destroy = new Subject<void>();
   userDetails: any = {};
@@ -68,6 +68,12 @@ export class DetailsComponent implements OnInit {
 
   public goBack():void{
     this.router.navigate(['/login'])
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
+    
   }
 
 
