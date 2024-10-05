@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { User } from '../model/user.model';
 import { CommonService } from '../services/common.service';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
@@ -45,7 +44,6 @@ export class DetailsComponent implements OnInit,OnDestroy {
         }
       },
       error: error => {
-        console.log("err",error);
         if (error.status==0) {
           this.commonService.error("Something went wrong!");
         }else{
